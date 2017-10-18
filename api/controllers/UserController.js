@@ -17,7 +17,7 @@ module.exports = {
             user: decodedUser.id,
             content: req.param('message')
         }).then(function(createdMessage) {
-            return ok('ok');
+            return res.ok('ok');
         }).catch(function(err) {
             return res.negotiate(err);
         });
