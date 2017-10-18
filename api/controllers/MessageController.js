@@ -7,10 +7,15 @@
 
 module.exports = {
     list: function(req, res) {
-        if (!req.isSocket)
-            return res.badRequest('Care verga, haga las peticiones bien');
+
 
         Message.find().populate('user').then(function(messages) {
+
+            if (req.isSocket){
+                Message.subscribe(req, _.pluck(messages, '_id'));         
+            }
+           
+            
             return res.ok(messages);
         }).catch(function(err) {
             return res.negotiate(err);
