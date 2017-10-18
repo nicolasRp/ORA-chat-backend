@@ -12,9 +12,8 @@ module.exports = {
         Message.find().populate('user').then(function(messages) {
 
             if (req.isSocket){
-                Message.subscribe(req, _.pluck(messages, '_id'));         
+                Message.subscribe(req, messages);         
             }
-           
             
             return res.ok(messages);
         }).catch(function(err) {
